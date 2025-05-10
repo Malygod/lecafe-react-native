@@ -15,7 +15,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <StatusBar style="auto" />
+      <StatusBar translucent={true} />
       <Stack.Navigator
         initialRouteName='Login'
         screenOptions={{
@@ -27,7 +27,7 @@ export default function App() {
         <Stack.Screen
           name='Login'
           component={Login}
-          options={{ title: 'Primary screen' , headerMode: 'screen'}}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
