@@ -1,19 +1,18 @@
-import { LinearGradient } from "expo-linear-gradient"
-import { View, Text, StyleSheet } from "react-native"
+import { View, StyleSheet, Image } from "react-native"
 import { StackScreenProps } from '@react-navigation/stack';
+import Frame from '../components/Frame';
 
 export default function Login() {
+
     return (
-        <LinearGradient
-            colors={['#FF6295', '#FFB03A']}
-            start={{ x: 0.005, y: 0.468 }}
-            end={{ x: 0.995, y: 1.0 }}
-            style={styles.background}
-        >
-            <View style={styles.container}>
-                <Text style={styles.text}>Texto con fondo degradado</Text>
-            </View>
-        </LinearGradient>
+            <Frame colorFrom='#FF6295' colorTo='#FF7971'>
+                <View style={styles.container}>
+                    <Image
+                        source={require('../../assets/images/lecafé.png')}
+                        style={styles.logoImg}
+                    />
+                </View>
+            </Frame>
     );
 }
 
@@ -24,10 +23,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     text: {
         color: 'white',
         fontSize: 18
-    }
+    },
+    logoImg: {
+        top: '40%',
+        alignSelf: 'center',
+        position: 'absolute'
+    },
 });
