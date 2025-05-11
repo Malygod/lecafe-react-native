@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { LinearGradient as ExpoLinearGradient } from "expo-linear-gradient";
-import { View, Text, StyleSheet, Image, Dimensions, Animated, PanResponder } from "react-native"
+import { View, StyleSheet, Image, Dimensions, Animated, PanResponder } from "react-native"
 import { NavigationStackProps } from '../../types/navigation';
+import FriendMatchNavigation from 'pages/components/ui/FriendMatchNavigation';
 import ActionButtons from '../components/ui/ActionButtons';
 import CardUserInfo from 'pages/components/ui/CardUserInfo';
+import OverlayColor from 'pages/components/ui/OverlayColor';
 import TopBar from 'pages/components/ui/TopBar';
 import Frame from '../components/Frame';
 
@@ -19,7 +21,6 @@ export default function FriendSearch() {
         { imageUri: require('../../assets/photos/sandra-gomez.png'), alt: 'first image', name: 'Sandra Gómez', age: 21, location: 'Surco, Perú' },
         { imageUri: require('../../assets/photos/how-to-whiten-teeth.png'), alt: 'behind image', name: 'Belen Sanchez', age: 25, location: 'Buenos aires, Argentina' }
     ];
-
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
@@ -49,7 +50,7 @@ export default function FriendSearch() {
 
     const getCardStyle = () => {
         const rotate = pan.x.interpolate({
-            inputRange: [-width/2, 0, width/2],
+            inputRange: [-width / 2, 0, width / 2],
             outputRange: ['-30deg', '0deg', '30deg'],
             extrapolate: 'extend'
         });
@@ -62,9 +63,15 @@ export default function FriendSearch() {
         };
     };
 
-    const opacity = pan.x.interpolate({
-        inputRange: [-width/2, 0, width/2],
-        outputRange: [0.5, 1, 0.5],
+    const leftOverlay = pan.x.interpolate({
+        inputRange: [-width / 2, 0],
+        outputRange: [0.8, 0],
+        extrapolate: 'clamp'
+    });
+
+    const rightOverLay = pan.x.interpolate({
+        inputRange: [0, width / 2],
+        outputRange: [0, 0.8],
         extrapolate: 'clamp'
     });
 
@@ -74,14 +81,12 @@ export default function FriendSearch() {
             <View style={styles.container}>
                 {imagesList.map((image, index) => {
                     if (index < currentIndex) return null;
-                    
+
                     return index === currentIndex ? (
                         <Animated.View
                             key={index}
                             {...panResponder.panHandlers}
-                            style={[styles.animatedCard, getCardStyle(), styles.topCard,{
-                                opacity: opacity
-                            }]}
+                            style={[styles.animatedCard, getCardStyle(), styles.topCard]}
                         >
                             <Image
                                 source={image.imageUri}
@@ -89,6 +94,19 @@ export default function FriendSearch() {
                                 resizeMode="cover"
                                 alt={image.alt}
                             />
+
+                            <OverlayColor
+                                transitionOverLay={leftOverlay}
+                                backgroundColor='rgba(150, 150, 150, 1)'
+                                icon='dislike'
+                            />
+
+                            <OverlayColor
+                                transitionOverLay={rightOverLay}
+                                backgroundColor='rgba(250, 190, 190, 1)'
+                                icon='like'
+                            />
+
                             <View style={styles.overlay} />
                             <ExpoLinearGradient
                                 colors={[
@@ -103,8 +121,7 @@ export default function FriendSearch() {
                                 end={{ x: 0.5, y: 1 }}
                                 style={styles.overlay}
                             />
-
-                            {/* Información del usuario */}
+                            <FriendMatchNavigation />
                             <CardUserInfo
                                 name={image.name}
                                 age={image.age}
@@ -120,6 +137,7 @@ export default function FriendSearch() {
                                 resizeMode="cover"
                                 alt={image.alt}
                             />
+                            <FriendMatchNavigation />
                             <CardUserInfo
                                 name={image.name}
                                 age={image.age}
@@ -157,7 +175,7 @@ const styles = StyleSheet.create({
     overlay: {
         ...StyleSheet.absoluteFillObject,
         borderRadius: 30,
-        paddingVertical: 50, 
+        paddingVertical: 50,
     },
     topCard: {
         zIndex: 2,
