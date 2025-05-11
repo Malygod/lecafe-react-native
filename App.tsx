@@ -2,9 +2,9 @@ import React, { Suspense } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'
-import Login from './pages/layouts/Login'
-import FriendSearch from './pages/layouts/FriendSearch'
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import Login from './pages/layouts/Login';
+import FriendSearch from './pages/layouts/FriendSearch';
 import * as SystemUI from 'expo-system-ui';
 
 
@@ -26,7 +26,8 @@ export default function App() {
         initialRouteName='Login'
         screenOptions={{
           headerStyle: { backgroundColor: '#FF6295' },
-          headerTintColor: '#FF6295'
+          headerTintColor: '#FF6295',
+          ...TransitionPresets.ModalSlideFromBottomIOS
         }}
       >
         <Stack.Screen
