@@ -1,5 +1,7 @@
-# lecafe-react-native
-Prototipo prueba técnica
+# ☕ LeCafe React Native
+
+Este repositorio contiene el prototipo de la aplicación **LeCafe**, desarrollada con [Expo](https://expo.dev) como parte de una prueba técnica.  
+This repository contains the **LeCafe** app prototype, built using [Expo](https://expo.dev) for a technical test.
 
 ---
 
@@ -19,13 +21,15 @@ You can test the app on **Android** or **iOS** using the **Expo Go** app—no na
 
 1. Abre Expo Go en tu dispositivo.  
    Open Expo Go on your device.  
-2. Usa la función de escáner de QR dentro de Expo Go para escanear este código (o abre directamente el enlace).  
-   Use the QR scanner within Expo Go to scan this code (or open the link directly).  
+2. Usa la función de escáner de QR dentro de Expo Go para escanear este código (o abre uno de los enlaces).  
+   Use the QR scanner within Expo Go to scan this code (or open one of the links).  
 
-<kbd>![QR Code](https://u.expo.dev/23f76f7c-c0cb-48fb-aed6-4118d811273b?platform=all)</kbd>  
+<kbd>![QR Code](https://u.expo.dev/23f76f7c-c0cb-48fb-aed6-4118d811273b?platform=all&release-channel=preview)</kbd>  
 
-**Enlace directo / Direct link:**  
-https://expo.dev/accounts/malygod/projects/lecafe-react-native/updates/abdeaee1-d3d6-4896-9c04-31e3425dfb6f
+**Enlaces directos / Direct links:**
+
+- exp://u.expo.dev/23f76f7c-c0cb-48fb-aed6-4118d811273b?release-channel=preview
+- https://u.expo.dev/23f76f7c-c0cb-48fb-aed6-4118d811273b?platform=all&release-channel=preview
 
 ---
 
