@@ -1,40 +1,28 @@
-# ☕ LeCafe React Native
+# ☕ LeCafe - React Native Prototype
 
-Este repositorio contiene el prototipo de la aplicación **LeCafe**, desarrollada con [Expo](https://expo.dev) como parte de una prueba técnica.  
-This repository contains the **LeCafe** app prototype, built using [Expo](https://expo.dev) for a technical test.
-
----
-
-## 📱 Cómo probar la app / How to run the app
-
-Puedes ver la app en **Android** o **iOS** usando la app **Expo Go**, sin necesidad de compilar el proyecto.  
-You can test the app on **Android** or **iOS** using the **Expo Go** app—no native builds required.
-
-### Requisitos / Prerequisites
-
-- **Android:** instala Expo Go desde la [Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent)  
-- **iOS:** instala Expo Go desde la [App Store](https://apps.apple.com/app/expo-go/id982107779)
+Aplicación de conexión social para amantes del café | Social connection app for coffee lovers
 
 ---
 
-### Pasos / Steps
+## 📱 Prueba en dispositivos reales (Expo Go)
 
-1. Abre Expo Go en tu dispositivo.  
-   Open Expo Go on your device.  
-2. Usa la función de escáner de QR dentro de Expo Go para escanear este código (o abre uno de los enlaces).  
-   Use the QR scanner within Expo Go to scan this code (or open one of the links).  
+### Requisitos previos
+- [Node.js](https://nodejs.org) (v18+)
+- [Expo Go](https://expo.dev/client) instalado en tu dispositivo móvil
+- Cuenta de [Expo](https://expo.dev/signup) (opcional pero recomendado)
 
-<kbd>![QR Code](https://qr.expo.dev/eas-update?projectId=23f76f7c-c0cb-48fb-aed6-4118d811273b&runtimeVersion=1.0.0&channel=preview)</kbd>
+### Instrucciones para probar
 
-**Enlaces directos / Direct links:**  
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/malygod/lecafe-react-native.git
+   cd lecafe-react-native
 
-- exp://u.expo.dev/23f76f7c-c0cb-48fb-aed6-4118d811273b?release-channel=preview&runtime-version=1.0.0  
-- https://u.expo.dev/23f76f7c-c0cb-48fb-aed6-4118d811273b?platform=all&release-channel=preview&runtime-version=1.0.0
+2. **Instalar Dependencias**
+   npm install
 
----
+3. **Iniciar el servidor de desarrollo**
+   npx expo start --tunnel
 
-## ⚙️ Scripts disponibles / Available scripts
-
-```bash
-npm install         # Instala dependencias / Installs dependencies
-npx expo start      # Inicia el servidor de desarrollo / Starts development server
+🔍 ¿Problemas?
+Abre un issue o contacta al desarrollador
