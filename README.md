@@ -1,7 +1,6 @@
 # ☕ LeCafe - React Native Prototype
 
-Aplicación de conexión social para amantes del café | Social connection app for coffee lovers
-
+Prueba técnica
 ---
 
 ## 📱 Prueba en dispositivos reales (Expo Go)
