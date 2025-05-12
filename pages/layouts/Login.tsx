@@ -1,8 +1,19 @@
-import { View, StyleSheet, Image } from "react-native"
-import { StackScreenProps } from '@react-navigation/stack';
+import { useEffect } from "react";
+import { View, StyleSheet, Image } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import { NavigationStackProps } from '../../types/navigation';
 import Frame from '../components/Frame';
 
 export default function Login() {
+    const navigation = useNavigation<NavigationStackProps>();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            navigation.navigate('FriendSearch');
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, [navigation]);
 
     return (
             <Frame colorFrom='#FF6295' colorTo='#FF7971'>
