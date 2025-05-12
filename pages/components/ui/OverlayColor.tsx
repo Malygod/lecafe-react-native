@@ -46,6 +46,7 @@ const OverlayColor = ({ transitionOverLay, backgroundColor, icon, styles }: Prop
                     borderRadius: 30,
                     justifyContent: 'center',
                     alignItems: 'center',
+                    zIndex: 50,
                     ...styles
                 }
             ]}

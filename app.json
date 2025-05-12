@@ -24,6 +24,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "23f76f7c-c0cb-48fb-aed6-4118d811273b"
+      }
+    },
+    "owner": "malygod"
   }
 }

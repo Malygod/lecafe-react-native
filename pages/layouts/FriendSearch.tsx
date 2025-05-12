@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { LinearGradient as ExpoLinearGradient } from "expo-linear-gradient";
 import { View, StyleSheet, Image, Dimensions, Animated, PanResponder } from "react-native"
-import { NavigationStackProps } from '../../types/navigation';
 import FriendMatchNavigation from 'pages/components/ui/FriendMatchNavigation';
 import ActionButtons from '../components/ui/ActionButtons';
 import CardUserInfo from 'pages/components/ui/CardUserInfo';
@@ -13,8 +12,8 @@ const { width, height } = Dimensions.get('window');
 const SWIPE_THRESHOLD = width * 0.25;
 
 export default function FriendSearch() {
-
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [containerHeight, setContainerHeight] = useState(0);
     const pan = useRef(new Animated.ValueXY()).current;
 
     const imagesList = [
@@ -78,15 +77,32 @@ export default function FriendSearch() {
     return (
         <Frame colorFrom='#9072E5' colorTo='#7086E3'>
             <TopBar />
-            <View style={styles.container}>
+            <View 
+                style={styles.container}
+                onLayout={(event) => {
+                    const { height } = event.nativeEvent.layout;
+                    setContainerHeight(height);
+                }}
+            >
                 {imagesList.map((image, index) => {
                     if (index < currentIndex) return null;
+
+                    const cardHeight = containerHeight * 0.87; // Dynamic height
+                    const bottomOffset = containerHeight * 0.12; // Dynamic bottom
 
                     return index === currentIndex ? (
                         <Animated.View
                             key={index}
                             {...panResponder.panHandlers}
-                            style={[styles.animatedCard, getCardStyle(), styles.topCard]}
+                            style={[
+                                styles.animatedCard,
+                                { 
+                                    height: cardHeight,
+                                    bottom: bottomOffset,
+                                },
+                                getCardStyle(), 
+                                styles.topCard
+                            ]}
                         >
                             <Image
                                 source={image.imageUri}
@@ -130,7 +146,16 @@ export default function FriendSearch() {
                             <ActionButtons buttonsSize={width * 0.075} />
                         </Animated.View>
                     ) : (
-                        <View key={index} style={[styles.cardImage, styles.behindCard]}>
+                        <View 
+                            key={index} 
+                            style={[
+                                styles.behindCard,
+                                { 
+                                    height: containerHeight * 0.95,
+                                    bottom: containerHeight * 0.09,
+                                }
+                            ]}
+                        >
                             <Image
                                 source={image.imageUri}
                                 style={styles.cardImage}
@@ -161,9 +186,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     animatedCard: {
-        bottom: width * 0.120,
         width: width * 0.85,
-        height: height * 0.87,
         position: 'absolute',
         borderRadius: 30
     },
@@ -187,10 +210,8 @@ const styles = StyleSheet.create({
     },
     behindCard: {
         position: 'absolute',
-        bottom: width * 0.090,
         width: width * 0.88,
-        height: height * 0.95,
         zIndex: 1,
         transform: [{ scale: 0.9 }]
-    }
+    },
 });

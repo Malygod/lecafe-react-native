@@ -2,9 +2,6 @@ import { View, TouchableHighlight, StyleSheet } from 'react-native';
 import { Svg, Path, Circle, Mask, G } from 'react-native-svg';
 
 export default function FriendMatchNavigation() {
-    const handleLike = () => console.log('Like');
-    const handleDislike = () => console.log('Dislike');
-    const handleSuperLike = () => console.log('Super Like');
 
     return (
         <View style={styles.actionsContainer}>
@@ -85,6 +82,7 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 20,
         alignItems: 'center',
+        zIndex: 100
     },
     actionButton: {
         opacity: 0.5

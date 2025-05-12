@@ -5,14 +5,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import Login from './pages/layouts/Login';
 import FriendSearch from './pages/layouts/FriendSearch';
+import SideBar from './pages/layouts/SideBar';
 import * as SystemUI from 'expo-system-ui';
-
 
 SystemUI.setBackgroundColorAsync('transparent');
 
 type RootStackParamList = {
   Login: undefined;
   FriendSearch: undefined;
+  SideBar: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -38,6 +39,11 @@ export default function App() {
         <Stack.Screen
           name='FriendSearch'
           component={FriendSearch}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='SideBar'
+          component={SideBar}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
