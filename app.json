@@ -30,6 +30,12 @@
         "projectId": "23f76f7c-c0cb-48fb-aed6-4118d811273b"
       }
     },
-    "owner": "malygod"
+    "owner": "malygod",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/23f76f7c-c0cb-48fb-aed6-4118d811273b"
+    }
   }
 }
