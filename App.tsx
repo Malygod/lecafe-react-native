@@ -22,7 +22,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <StatusBar translucent backgroundColor="transparent" style="light" />
+      <StatusBar translucent />
       <Stack.Navigator
         initialRouteName='Login'
         screenOptions={{

@@ -10,6 +10,13 @@ export default function TopBar() {
         <View style={styles.container}>
             <TouchableOpacity
                 onPress={() => navigation.navigate('SideBar')}
+                activeOpacity={1}
+                //make it transparent please
+                style={{
+                    backgroundColor: 'transparent',
+                    shadowColor: 'tr',
+                    zIndex: 1
+                }}
             >
                 <Svg width="26" height="26" viewBox="0 0 24 24" fill="none">
                     <Path fill-rule="evenodd" clip-rule="evenodd" d="M22 17L22 19L10 19L10 17L22 17Z" fill="white"/>
@@ -28,9 +35,11 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        backgroundColor: 'transparent',
         alignItems: 'center',
         paddingHorizontal: 30,
         paddingTop: 50,
         width: '100%',
+        zIndex: 0
     }
 });
