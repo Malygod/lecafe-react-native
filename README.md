@@ -18,10 +18,10 @@ Prueba técnica
    cd lecafe-react-native
 
 2. **Instalar Dependencias**
+   ```
    npm install
-
-3. **Iniciar el servidor de desarrollo**
+4. **Iniciar el servidor de desarrollo**
+   ```
    npx expo start --tunnel
-
 🔍 ¿Problemas?
 Abre un issue o contacta al desarrollador
