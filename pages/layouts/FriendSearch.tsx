@@ -87,8 +87,8 @@ export default function FriendSearch() {
                 {imagesList.map((image, index) => {
                     if (index < currentIndex) return null;
 
-                    const cardHeight = containerHeight * 0.87; // Dynamic height
-                    const bottomOffset = containerHeight * 0.12; // Dynamic bottom
+                    const cardHeight = containerHeight * 0.90;
+                    const bottomOffset = containerHeight * 0.070;
 
                     return index === currentIndex ? (
                         <Animated.View
@@ -143,7 +143,10 @@ export default function FriendSearch() {
                                 age={image.age}
                                 location={image.location}
                             />
-                            <ActionButtons buttonsSize={width * 0.075} />
+                            <ActionButtons 
+                                buttonsSize={width * 0.075}
+                                cardHeight={cardHeight}
+                                />
                         </Animated.View>
                     ) : (
                         <View 
@@ -151,8 +154,8 @@ export default function FriendSearch() {
                             style={[
                                 styles.behindCard,
                                 { 
-                                    height: containerHeight * 0.95,
-                                    bottom: containerHeight * 0.09,
+                                    height: containerHeight * 1,
+                                    bottom: containerHeight * 0.04,
                                 }
                             ]}
                         >

@@ -8,9 +8,11 @@ const { width, height } = Dimensions.get('window');
 
 interface IActionButtons {
     buttonsSize: number
+    cardHeight?: number | null
 }
 
 export default function ActionButtons(props: IActionButtons) {
+    const [containerHeight, setContainerHeight] = useState(0);
     const [dislike, setDislike] = useState(false);
     const [superLike, setSuperLike] = useState(false);
     const [like, setLike] = useState(false);
@@ -31,7 +33,12 @@ export default function ActionButtons(props: IActionButtons) {
     };
 
     return (
-        <View style={styles.actionsContainer}>
+        <View style={styles.actionsContainer}
+                onLayout={(event) => {
+                    const { height } = event.nativeEvent.layout;
+                    setContainerHeight(height);
+                }}
+        >
 
             <TouchableOpacity
                 style={styles.dislikeButton}
@@ -48,8 +55,8 @@ export default function ActionButtons(props: IActionButtons) {
                     styles={{
                         position: 'absolute',
                         width: width * 0.85,
-                        height: height * 0.87,
-                        top: -(height * 0.7575),
+                        height: props.cardHeight ? props.cardHeight : (height * 0.87),
+                        top: -(props.cardHeight ? props.cardHeight - (containerHeight + 30) : (height * 0.7465)),
                         left: 0,
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -71,8 +78,8 @@ export default function ActionButtons(props: IActionButtons) {
                     styles={{
                         position: 'absolute',
                         width: width * 0.85,
-                        height: height * 0.87,
-                        top: -(height * 0.7575),
+                        height: props.cardHeight ? props.cardHeight : (height * 0.87),
+                        top: -(props.cardHeight ? props.cardHeight - (containerHeight + 30) : (height * 0.7465)),
                         left: 0,
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -86,6 +93,7 @@ export default function ActionButtons(props: IActionButtons) {
             >
                 <MaterialIcons name="check" size={props.buttonsSize} color="#FFFFFF" />
             </TouchableOpacity>
+            
             {like && (
                 <OverlayColor
                     transitionOverLay={null}
@@ -94,8 +102,8 @@ export default function ActionButtons(props: IActionButtons) {
                     styles={{
                         position: 'absolute',
                         width: width * 0.85,
-                        height: height * 0.87,
-                        top: -(height * 0.7575),
+                        height: props.cardHeight ? props.cardHeight : (height * 0.87),
+                        top: -(props.cardHeight ? props.cardHeight - (containerHeight + 30) : (height * 0.7465)),
                         left: 0,
                         justifyContent: 'center',
                         alignItems: 'center',
