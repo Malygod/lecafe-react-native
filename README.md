@@ -24,12 +24,12 @@ You can test the app on **Android** or **iOS** using the **Expo Go** app—no na
 2. Usa la función de escáner de QR dentro de Expo Go para escanear este código (o abre uno de los enlaces).  
    Use the QR scanner within Expo Go to scan this code (or open one of the links).  
 
-<kbd>![QR Code](https://u.expo.dev/23f76f7c-c0cb-48fb-aed6-4118d811273b?platform=all&release-channel=preview)</kbd>  
+<kbd>![QR Code](https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://u.expo.dev/15fa7769-4574-48d7-a7bb-32596c887da9f?platform=all&release-channel=preview&runtime-version=1.0.0)</kbd>
 
-**Enlaces directos / Direct links:**
+**Enlaces directos / Direct links:**  
 
-- exp://u.expo.dev/23f76f7c-c0cb-48fb-aed6-4118d811273b?release-channel=preview
-- https://u.expo.dev/23f76f7c-c0cb-48fb-aed6-4118d811273b?platform=all&release-channel=preview
+- exp://u.expo.dev/15fa7769-4574-48d7-a7bb-32596c887da9f?release-channel=preview&runtime-version=1.0.0
+- https://u.expo.dev/15fa7769-4574-48d7-a7bb-32596c887da9f?platform=all&release-channel=preview&runtime-version=1.0.0
 
 ---
 
