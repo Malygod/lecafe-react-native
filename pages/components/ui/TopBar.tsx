@@ -35,9 +35,11 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        backgroundColor: 'transparent',
         alignItems: 'center',
         paddingHorizontal: 30,
         paddingTop: 50,
         width: '100%',
+        zIndex: 0
     }
 });

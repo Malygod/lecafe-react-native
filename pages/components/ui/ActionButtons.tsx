@@ -59,8 +59,7 @@ export default function ActionButtons(props: IActionButtons) {
                         top: -(props.cardHeight ? props.cardHeight - (containerHeight + 30) : (height * 0.7465)),
                         left: 0,
                         justifyContent: 'center',
-                        alignItems: 'center',
-                        zIndex: 999
+                        alignItems: 'center'
                     }} />
             )}
             <TouchableOpacity
@@ -82,8 +81,7 @@ export default function ActionButtons(props: IActionButtons) {
                         top: -(props.cardHeight ? props.cardHeight - (containerHeight + 30) : (height * 0.7465)),
                         left: 0,
                         justifyContent: 'center',
-                        alignItems: 'center',
-                        zIndex: 999
+                        alignItems: 'center'
                     }} />
             )}
             <TouchableOpacity
@@ -106,8 +104,7 @@ export default function ActionButtons(props: IActionButtons) {
                         top: -(props.cardHeight ? props.cardHeight - (containerHeight + 30) : (height * 0.7465)),
                         left: 0,
                         justifyContent: 'center',
-                        alignItems: 'center',
-                        zIndex: 999
+                        alignItems: 'center'
                     }} />
             )}
         </View>

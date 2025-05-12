@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { LinearGradient as ExpoLinearGradient } from "expo-linear-gradient";
 import { View, StyleSheet, Image, Dimensions, Animated, PanResponder } from "react-native"
 import FriendMatchNavigation from 'pages/components/ui/FriendMatchNavigation';
@@ -42,10 +42,18 @@ export default function FriendSearch() {
         }
     });
 
+    
     const handleCompleteSwipe = () => {
         setCurrentIndex(prev => (prev + 1) % imagesList.length);
-        pan.setValue({ x: 0, y: 0 });
+        Animated.spring(pan, {
+            toValue: { x: 0, y: 0 },
+            useNativeDriver: true
+        })
     }
+
+    useEffect(() => {
+       pan.setValue({ x: 0, y: 0 });
+    }, [currentIndex]);
 
     const getCardStyle = () => {
         const rotate = pan.x.interpolate({
@@ -171,6 +179,19 @@ export default function FriendSearch() {
                                 age={image.age}
                                 location={image.location}
                             />
+                            <ExpoLinearGradient
+                                colors={[
+                                    'rgba(0, 0, 0, 0.45)',
+                                    'transparent',
+                                    'transparent',
+                                    'transparent',
+                                    'rgba(0, 0, 0, 0.45)'
+                                ]}
+                                locations={[0, 0.2, 0.45, 0.8, 1]}
+                                start={{ x: 0.5, y: 0 }}
+                                end={{ x: 0.5, y: 1 }}
+                                style={styles.overlay}
+                            />
                             <ActionButtons buttonsSize={width * 0.07} />
                         </View>
                     );
@@ -191,7 +212,13 @@ const styles = StyleSheet.create({
     animatedCard: {
         width: width * 0.85,
         position: 'absolute',
-        borderRadius: 30
+        borderRadius: 30,
+        zIndex: 2,
+        shadowColor: '#68697F1A',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 1,
+        shadowRadius: 6,
+        elevation: 5
     },
     cardImage: {
         width: '100%',
