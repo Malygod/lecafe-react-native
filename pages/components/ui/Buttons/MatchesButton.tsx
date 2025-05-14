@@ -1,7 +1,7 @@
 import { useContext, memo } from 'react'
 import { TouchableHighlight } from 'react-native';
 import { CardsNavigationContext, type ContextType } from '../../../context/cards-navigation-context';
-import { Svg, Path, Mask, Circle, G, Defs, Filter, FeFlood, FeColorMatrix, FeOffset, FeGaussianBlur, FeBlend } from 'react-native-svg';
+import { Svg, Path, Mask, Circle, G } from 'react-native-svg';
 
 type ButtonProps = {
     type: keyof ContextType['states']; // 'friendState' | 'datesState' | 'matchesState'
