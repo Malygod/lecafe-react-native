@@ -10,7 +10,6 @@ export default function TopBar() {
         <View style={styles.container}>
             <TouchableOpacity
                 onPress={() => navigation.navigate('SideBar')}
-                activeOpacity={1}
                 //make it transparent please
                 style={{
                     backgroundColor: 'transparent',
