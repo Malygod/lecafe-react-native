@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo, memo } from 'react';
 import { LinearGradient as ExpoLinearGradient } from "expo-linear-gradient";
 import { View, StyleSheet, Image, Dimensions, Animated, PanResponder } from "react-native"
 import FriendMatchNavigation from 'pages/components/ui/FriendMatchNavigation';
@@ -21,45 +21,67 @@ interface ImagesCards {
     imagesList: ImagesList
 }
 
+const GradientOverlay = memo(() => (
+    <ExpoLinearGradient
+        colors={[
+            'rgba(0, 0, 0, 0.5)',
+            'rgba(0, 0, 0, 0.1)',
+            'transparent',
+            'rgba(0, 0, 0, 0.4)',
+            'rgba(0, 0, 0, 0.9)'
+        ]}
+        locations={[0, 0.2, 0.5, 0.8, 1]}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+        style={styles.overlay}
+    />
+));
+
+const MemoizedFriendMatchNavigation = memo(FriendMatchNavigation);
+const MemoizedActionButtons = memo(ActionButtons);
+const MemoizedCardUserInfo = memo(CardUserInfo);
+const MemoizedOverlayColor = memo(OverlayColor);
+
 export default function ImagesCards({ imagesList }: ImagesCards) {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [containerHeight, setContainerHeight] = useState(0);
     const pan = useRef(new Animated.ValueXY()).current;
 
-    const panResponder = PanResponder.create({
-        onStartShouldSetPanResponder: () => true,
-        onPanResponderMove: (_, gesture) => {
-            pan.setValue({ x: gesture.dx, y: 0 });
-        },
-        onPanResponderRelease: (_, gesture) => {
-            if (Math.abs(gesture.dx) > SWIPE_THRESHOLD) {
-                Animated.timing(pan, {
-                    toValue: { x: gesture.dx > 0 ? width : -width, y: 0 },
-                    duration: 200,
-                    useNativeDriver: true
-                }).start(() => handleCompleteSwipe());
-            } else {
-                Animated.spring(pan, {
-                    toValue: { x: 0, y: 0 },
-                    useNativeDriver: true
-                }).start();
-            }
-        }
-    });
-
-    const handleCompleteSwipe = () => {
+    const handleCompleteSwipe = useCallback(() => {
         setCurrentIndex(prev => (prev + 1) % imagesList.length);
         Animated.spring(pan, {
             toValue: { x: 0, y: 0 },
             useNativeDriver: true
         })
-    }
+    }, [imagesList.length]);
+
+    const panResponder = useMemo(() =>
+        PanResponder.create({
+            onStartShouldSetPanResponder: () => true,
+            onPanResponderMove: (_, gesture) => {
+                pan.setValue({ x: gesture.dx, y: 0 });
+            },
+            onPanResponderRelease: (_, gesture) => {
+                if (Math.abs(gesture.dx) > SWIPE_THRESHOLD) {
+                    Animated.timing(pan, {
+                        toValue: { x: gesture.dx > 0 ? width : -width, y: 0 },
+                        duration: 200,
+                        useNativeDriver: true
+                    }).start(() => handleCompleteSwipe());
+                } else {
+                    Animated.spring(pan, {
+                        toValue: { x: 0, y: 0 },
+                        useNativeDriver: true
+                    }).start();
+                }
+            }
+        }), [handleCompleteSwipe])
 
     useEffect(() => {
         pan.setValue({ x: 0, y: 0 });
     }, [currentIndex]);
 
-    const getCardStyle = () => {
+    const getCardStyle = useCallback(() => {
         const rotate = pan.x.interpolate({
             inputRange: [-width / 2, 0, width / 2],
             outputRange: ['-30deg', '0deg', '30deg'],
@@ -72,7 +94,7 @@ export default function ImagesCards({ imagesList }: ImagesCards) {
                 { rotate: rotate }
             ]
         };
-    };
+    }, [pan.x]);
 
     const leftOverlay = pan.x.interpolate({
         inputRange: [-width / 2, 0],
@@ -86,30 +108,29 @@ export default function ImagesCards({ imagesList }: ImagesCards) {
         extrapolate: 'clamp'
     });
 
+    const visibleImages = imagesList.slice(currentIndex, currentIndex + 2);
+
     return (
-            <View 
-                style={styles.container}
-                onLayout={(event) => {
-                    const { height } = event.nativeEvent.layout;
-                    setContainerHeight(height);
-                }}
-            >
-            {imagesList.map((image, index) => {
-                if (index < currentIndex) return null;
+        <View
+            style={styles.container}
+            onLayout={(event) => {
+                const { height } = event.nativeEvent.layout;
+                setContainerHeight(h => h !== height ? height : h);
+            }}
+        >
+            {visibleImages.map((image, relativeIndex) => {
+                const absoluteIndex = currentIndex + relativeIndex;
+                const isCurrent = relativeIndex === 0;
+                const cardHeight = containerHeight * (isCurrent ? 0.90 : 1);
+                const bottomOffset = containerHeight * (isCurrent ? 0.070 : 0.04);
 
-                const cardHeight = containerHeight * 0.90;
-                const bottomOffset = containerHeight * 0.070;
-
-                return index === currentIndex ? (
+                return isCurrent ? (
                     <Animated.View
-                        key={index}
+                        key={absoluteIndex}
                         {...panResponder.panHandlers}
                         style={[
                             styles.animatedCard,
-                            {
-                                height: cardHeight,
-                                bottom: bottomOffset,
-                            },
+                            { height: cardHeight, bottom: bottomOffset },
                             getCardStyle(),
                             styles.topCard
                         ]}
@@ -120,53 +141,35 @@ export default function ImagesCards({ imagesList }: ImagesCards) {
                             resizeMode="cover"
                             alt={image.alt}
                         />
-
-                        <OverlayColor
+                        <MemoizedOverlayColor
                             transitionOverLay={leftOverlay}
                             backgroundColor='rgba(150, 150, 150, 1)'
                             icon='dislike'
                         />
-
-                        <OverlayColor
+                        <MemoizedOverlayColor
                             transitionOverLay={rightOverLay}
                             backgroundColor='rgba(250, 190, 190, 1)'
                             icon='like'
                         />
-
                         <View style={styles.overlay} />
-                        <ExpoLinearGradient
-                            colors={[
-                                'rgba(0, 0, 0, 0.45)',
-                                'transparent',
-                                'transparent',
-                                'transparent',
-                                'rgba(0, 0, 0, 0.45)'
-                            ]}
-                            locations={[0, 0.2, 0.45, 0.8, 1]}
-                            start={{ x: 0.5, y: 0 }}
-                            end={{ x: 0.5, y: 1 }}
-                            style={styles.overlay}
-                        />
-                        <FriendMatchNavigation />
-                        <CardUserInfo
+                        <GradientOverlay />
+                        <MemoizedFriendMatchNavigation />
+                        <MemoizedCardUserInfo
                             name={image.name}
                             age={image.age}
                             location={image.location}
                         />
-                        <ActionButtons
+                        <MemoizedActionButtons
                             buttonsSize={width * 0.075}
                             cardHeight={cardHeight}
                         />
                     </Animated.View>
                 ) : (
                     <View
-                        key={index}
+                        key={absoluteIndex}
                         style={[
                             styles.behindCard,
-                            {
-                                height: containerHeight * 1,
-                                bottom: containerHeight * 0.04,
-                            }
+                            { height: cardHeight, bottom: bottomOffset }
                         ]}
                     >
                         <Image
@@ -175,26 +178,14 @@ export default function ImagesCards({ imagesList }: ImagesCards) {
                             resizeMode="cover"
                             alt={image.alt}
                         />
-                        <FriendMatchNavigation />
-                        <CardUserInfo
+                        <MemoizedFriendMatchNavigation />
+                        <MemoizedCardUserInfo
                             name={image.name}
                             age={image.age}
                             location={image.location}
                         />
-                        <ExpoLinearGradient
-                            colors={[
-                                'rgba(0, 0, 0, 0.45)',
-                                'transparent',
-                                'transparent',
-                                'transparent',
-                                'rgba(0, 0, 0, 0.45)'
-                            ]}
-                            locations={[0, 0.2, 0.45, 0.8, 1]}
-                            start={{ x: 0.5, y: 0 }}
-                            end={{ x: 0.5, y: 1 }}
-                            style={styles.overlay}
-                        />
-                        <ActionButtons buttonsSize={width * 0.07} />
+                        <GradientOverlay />
+                        <MemoizedActionButtons buttonsSize={width * 0.07} />
                     </View>
                 );
             })}
