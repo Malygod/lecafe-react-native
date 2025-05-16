@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import { enableScreens } from 'react-native-screens';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,6 +10,7 @@ import SideBar from './pages/layouts/SideBar';
 import * as SystemUI from 'expo-system-ui';
 
 SystemUI.setBackgroundColorAsync('transparent');
+enableScreens(true);
 
 type RootStackParamList = {
   Login: undefined;
