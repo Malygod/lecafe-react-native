@@ -1,12 +1,10 @@
-// metro.config.cjs
+/**
+ * metro.config.js
+ * Este “wrapper” usa la configuración de Metro que Expo espera.
+ */
 const { getDefaultConfig } = require('expo/metro-config');
 
-const config = getDefaultConfig(__dirname);
-
-config.resolver = {
-  ...config.resolver,
-  sourceExts: ['js', 'jsx', 'json', 'ts', 'tsx', 'cjs'],
-  assetExts: ['glb', 'gltf', 'png', 'jpg', 'ttf', 'otf'],
-};
-
-module.exports = config;
+module.exports = (async () => {
+  const config = await getDefaultConfig(__dirname);
+  return config;
+})();
