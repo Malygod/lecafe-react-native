@@ -57,7 +57,7 @@ npx expo start -c --tunnel
 
 * Escanea el QR con **Expo Development Client** (no Expo Go).
 * Alternativas: `--lan` o `--local` en vez de `--tunnel`.
-* para instalar la app en un dispositivo android abrir este link:
+* Alternativa para instalar la app en un dispositivo android abrir este link:
 ```
 https://expo.dev/accounts/malygod/projects/lecafe-react-native/builds/76d3e00c-3c7f-43e3-b9f8-b2bef425647a
 ```
