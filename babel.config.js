@@ -1,9 +1,10 @@
-module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
-  plugins: [
-    'react-native-reanimated/plugin',
-    ['@babel/plugin-transform-modules-commonjs', { 
-      allowTopLevelThis: true 
-    }]
-  ]
+module.exports = function(api) {
+  api.cache(true);
+  return {
+    presets: ['babel-preset-expo'],
+    plugins: [
+      '@babel/plugin-transform-modules-commonjs',
+      'react-native-reanimated/plugin'
+    ]
+  };
 };

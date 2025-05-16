@@ -2,7 +2,7 @@
   "expo": {
     "name": "lecafe-react-native",
     "slug": "lecafe-react-native",
-    "plugins": [],
+    "plugins": ["react-native-screens"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
