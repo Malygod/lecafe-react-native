@@ -9,16 +9,17 @@ import OverlayColor from 'pages/components/ui/OverlayColor';
 const { width, height } = Dimensions.get('window');
 const SWIPE_THRESHOLD = width * 0.25;
 
-type ImagesList = {
+type UserDataList = {
     imageUrl: any;
     alt: string;
     name: string;
     age: number;
     location: string;
+    interests: string[];
 }[]
 
 interface ImagesCards {
-    imagesList: ImagesList
+    imagesList: UserDataList
 }
 
 const GradientOverlay = memo(() => (
@@ -110,6 +111,7 @@ export default function ImagesCards({ imagesList }: ImagesCards) {
 
     const visibleImages = imagesList.slice(currentIndex, currentIndex + 2);
 
+
     return (
         <View
             style={styles.container}
@@ -155,9 +157,11 @@ export default function ImagesCards({ imagesList }: ImagesCards) {
                         <GradientOverlay />
                         <MemoizedFriendMatchNavigation />
                         <MemoizedCardUserInfo
+                            photo={image.imageUrl}
                             name={image.name}
                             age={image.age}
                             location={image.location}
+                            interests={image.interests}
                         />
                         <MemoizedActionButtons
                             buttonsSize={width * 0.075}
@@ -180,9 +184,11 @@ export default function ImagesCards({ imagesList }: ImagesCards) {
                         />
                         <MemoizedFriendMatchNavigation />
                         <MemoizedCardUserInfo
+                            photo={image.imageUrl}
                             name={image.name}
                             age={image.age}
                             location={image.location}
+                            interests={image.interests}
                         />
                         <GradientOverlay />
                         <MemoizedActionButtons buttonsSize={width * 0.07} />
